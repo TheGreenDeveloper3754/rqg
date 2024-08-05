@@ -171,22 +171,23 @@ const App = () => {
     color: colors[0],
   });
   const handleClick = () => {
-    const randomQuote = getRandomQuote();
-    const randomColor = getRandomColor();
-    if (
-      quotes.quote !== randomQuote.quote &&
-      quotes.author !== randomQuote.author &&
-      quotes.color !== randomColor
-    ) {
-      setQuotes({
-        quote: randomQuote.quote,
-        author: randomQuote.author,
-        color: randomColor,
-      });
-    } else {
-      handleClick();
-    }
+    let newQuote, newColor;
+    do {
+      newQuote = getRandomQuote();
+      newColor = getRandomColor();
+    } while (
+      quotes.quote === newQuote.quote &&
+      quotes.author === newQuote.author &&
+      quotes.color === newColor
+    );
+
+    setQuotes({
+      quote: newQuote.quote,
+      author: newQuote.author,
+      color: newColor,
+    });
   };
+
   // Function to get random quote from the quoteList array
   const getRandomQuote = () => {
     const randomIndex = Math.floor(Math.random() * quoteList.length);
